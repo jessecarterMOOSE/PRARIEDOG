@@ -255,11 +255,17 @@
     category = 'Mesh Adaptivity'
     event = refine_and_coarsen_elements()
   [../]
-  [./reinit_time]
+  [./reinit_solutions_time]
     type = PerformanceData
     column = total_time_with_sub
     category = 'Mesh Adaptivity'
-    event = _eq.reinit()
+    event = _eq.reinit_solutions()
+  [../]
+  [./reinit_systems_time]
+    type = PerformanceData
+    column = total_time_with_sub
+    category = 'Mesh Adaptivity'
+    event = _eq.reinit_systems()
   [../]
   [./solve_time]
     type = PerformanceData

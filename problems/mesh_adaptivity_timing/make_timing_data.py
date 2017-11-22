@@ -81,7 +81,7 @@ for nx in nx_list:
   # write headers to output file
   with open(output_filename, 'w') as outfile:
     csv_writer = csv.writer(outfile)
-    csv_writer.writerow(['cpus', 'reinit', 'adaptivity', 'solve', 'other', 'total'])
+    csv_writer.writerow(['cpus', 'reinit_solutions', 'reinit_systems', 'adaptivity', 'solve', 'other', 'total'])
 
   # loop over cpu counts
   for cpus in cpu_list:
@@ -112,26 +112,27 @@ for nx in nx_list:
     total_time = df['total_time'].iloc[-1]
     adaptivity_time = df['adaptivity_time'].iloc[-1]
     solve_time = df['solve_time'].iloc[-1]
-    reinit_time = df['reinit_time'].iloc[-1]
-    other_time = total_time - adaptivity_time - solve_time - reinit_time
+    reinit_solutions_time = df['reinit_solutions_time'].iloc[-1]
+    reinit_systems_time = df['reinit_systems_time'].iloc[-1]
+    other_time = total_time - adaptivity_time - solve_time - reinit_solutions_time - reinit_systems_time
 
     # print info to screen
-    print 'reinit time:', reinit_time, 'adaptivity time:', adaptivity_time, 'solve time:', solve_time, 'other:', other_time, 'total:', total_time
+    print 'reinit solutions time:', reinit_solutions_time, 'reinit systems time:', reinit_systems_time, 'adaptivity time:', adaptivity_time, 'solve time:', solve_time, 'other:', other_time, 'total:', total_time
 
     # print info to file
     with open(output_filename, 'a') as outfile:
       csv_writer = csv.writer(outfile)
-      csv_writer.writerow([cpus, reinit_time, adaptivity_time, solve_time, other_time, total_time])
+      csv_writer.writerow([cpus, reinit_solutions_time, reinit_systems_time, adaptivity_time, solve_time, other_time, total_time])
 
   # now that we're done, open the timings file and plot contributions to the total runtime as a function of cpu count
   tdf = pandas.read_csv(output_filename)
 
   # stack up data we are interested in
-  data = np.row_stack((tdf['reinit'], tdf['adaptivity'], tdf['solve'], tdf['other']))
+  data = np.row_stack((tdf['reinit_solutions'], tdf['reinit_systems'], tdf['adaptivity'], tdf['solve'], tdf['other']))
 
   # plot it
   fig, ax = plt.subplots()
-  plt.stackplot(tdf['cpus'], data, colors=['r','b','g','grey'])
+  plt.stackplot(tdf['cpus'], data, colors=['r','darkred','b','g','grey'])
 
   # make it look nice
   plt.xscale('log')
@@ -144,10 +145,11 @@ for nx in nx_list:
 
   # creating the legend manually
   plt.legend([mpatches.Patch(color='r'),
+              mpatches.Patch(color='darkred'),
               mpatches.Patch(color='b'),
               mpatches.Patch(color='g'),
               mpatches.Patch(color='grey')],
-             ['_eq.reinit()','refine_and_coarsen_elements()','solve','other'])
+             ['_eq.reinit_solutions()','_eq.reinit_systems()','refine_and_coarsen_elements()','solve','other'])
 
   # output plot to file
   timing_filename = 'timing_breakdown' + filename_append_string + '.png'

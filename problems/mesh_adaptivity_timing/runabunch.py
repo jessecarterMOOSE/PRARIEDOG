@@ -47,7 +47,7 @@ print 'min time:', '{:.3f}'.format(np.min(time_array))
 print 'max time:', '{:.3f}'.format(np.max(time_array))
 print 'avg time:', '{:.3f}'.format(np.mean(time_array))
 print 'std dev:', '{:.3f}'.format(np.std(time_array)), '(', '{:.3f}'.format(np.std(time_array)/np.mean(time_array)*100.0), '% )'
-print 'range:', '{:.3f}'.format(np.max(time_array) - np.min(time_array)), '(', '{:.3f}'.format((np.max(time_array) - np.min(time_array))/np.mean(time_array)), '% )'
+print 'range:', '{:.3f}'.format(np.max(time_array) - np.min(time_array)), '(', '{:.3f}'.format((np.max(time_array) - np.min(time_array))/np.mean(time_array)*100.0), '% )'
 
 
 quit()

@@ -17,9 +17,11 @@ node_averages = {}
 for file in file_list:
   node = file.split('-')[1]
   node_times_array = np.loadtxt(file)
-  node_times[node] = node_times_array.tolist()  # put individual runs in a dict
-  node_averages[node] = np.mean(node_times_array)  # put average times in a dict
-  times_list.append(node_times_array.tolist())
+  # don't add data if file is empty
+  if np.size(node_times_array) > 0:
+    node_times[node] = node_times_array.tolist()  # put individual runs in a dict
+    node_averages[node] = np.mean(node_times_array)  # put average times in a dict
+    times_list.append(node_times_array.tolist())
 
 # flatten list of lists into one
 times_list = [item for sublist in times_list for item in sublist]

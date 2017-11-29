@@ -48,30 +48,3 @@ print 'max time:', '{:.3f}'.format(np.max(time_array))
 print 'avg time:', '{:.3f}'.format(np.mean(time_array))
 print 'std dev:', '{:.3f}'.format(np.std(time_array)), '(', '{:.3f}'.format(np.std(time_array)/np.mean(time_array)*100.0), '% )'
 print 'range:', '{:.3f}'.format(np.max(time_array) - np.min(time_array)), '(', '{:.3f}'.format((np.max(time_array) - np.min(time_array))/np.mean(time_array)*100.0), '% )'
-
-
-quit()
-
-# below here isn't quite ready yet
-
-# fit data to gaussian
-mu, sigma = stats.norm.fit(times_list)
-
-# fit data to log-normal
-shape, loc, scale = stats.lognorm.fit(times_list)
-
-# plot historgram and collect stats
-n, bins, patches = plt.hist(times_list, num_bins)
-
-# plot fitted gaussian, normalized to max histogram count
-x_gauss = np.linspace(mu-3.0*sigma, mu+3.0*sigma, 100)
-y_gauss = stats.norm.pdf(x_gauss, mu, sigma)
-plt.plot(x_gauss, y_gauss/max(y_gauss)*max(n))
-
-# plot fitted log-normal
-x_lognorm = np.linspace(min(bins), max(bins), 100)
-y_lognorm = stats.lognorm.pdf(x_lognorm, shape, loc, scale)
-plt.plot(x_lognorm, y_lognorm/max(y_lognorm)*max(n))
-
-# save figure
-plt.savefig('times-histogram.png')

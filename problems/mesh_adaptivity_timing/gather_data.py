@@ -39,6 +39,9 @@ print 'range:', '{:.3f}'.format(np.max(time_array) - np.min(time_array)), '(', '
 # make a histogram, but use a bin width
 plt.figure(figsize=(8, 6))
 n, bins, patches = plt.hist(times_list, bins=np.arange(min(times_list), max(times_list), bin_width), edgecolor='k', linewidth=0.5)
+plt.xlabel('runtime (sec.)')
+plt.ylabel('counts')
+plt.tight_layout()
 plt.savefig('times-histogram.png')
 
 # summarize data from each node

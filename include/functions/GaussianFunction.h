@@ -47,7 +47,7 @@ public:
    * @param t Time (unused)
    * @param p The point at which to get function value
    */
-  virtual Real value(Real t, const Point & p) const;
+  virtual Real value(Real t, const Point & p) const override;
 
   /**
    * Return the function value for the given point

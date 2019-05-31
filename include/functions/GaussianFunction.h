@@ -47,14 +47,14 @@ public:
    * @param t Time (unused)
    * @param p The point at which to get function value
    */
-  virtual Real value(Real t, const Point & p);
+  virtual Real value(Real t, const Point & p) const override;
 
   /**
    * Return the function value for the given point
    * @param p The point at which to get function value
    * @param center The peak of the Gaussian function
    */
-  virtual Real value(const Point & p, const Point & center);
+  virtual Real value(const Point & p, const Point & center) const;
 
 protected:
   /// Peak location of Gaussian Function

@@ -42,13 +42,13 @@ GaussianFunction::GaussianFunction(const InputParameters & parameters) :
 }
 
 Real
-GaussianFunction::value(Real /*t*/, const Point & p)
+GaussianFunction::value(Real /*t*/, const Point & p) const
 {
   return value(p, _peak_location);
 }
 
 Real
-GaussianFunction::value(const Point & p, const Point & center)
+GaussianFunction::value(const Point & p, const Point & center) const
 {
   // normalization constant so integral over domain (theoretically) equals 1
   unsigned int dim = _mesh.dimension();

@@ -54,7 +54,7 @@ RandomCircleMarker::computeElementMarker()
   Point centroid = _current_elem->centroid();
 
   // refine element if we are near element and it is time to refine
-  if ((((centroid-_p).size() < _r) || (_current_elem->contains_point(_p))) && (_marker_value == REFINE))
+  if ((((centroid-_p).norm() < _r) || (_current_elem->contains_point(_p))) && (_marker_value == REFINE))
     return _marker_value;
 
   // otherwise COARSEN
